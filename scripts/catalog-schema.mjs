@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const str={type:'string',minLength:1}, positive={type:'integer',minimum:1};
+const object=properties=>({type:'object',additionalProperties:false,required:Object.keys(properties),properties});
+const source=object({file:str,sheet:str,range:str});
+const workload={enum:['training','inference','tuning','hpc','digitalTwin','mixed']};
+const platform=object({id:str,vendor:{enum:['NVIDIA','AMD']},name:str,memory:str,configuration:str,cooling:str,scalableUnit:str,workloads:{type:'array',uniqueItems:true,items:workload},storage:str,network:str,considerations:str,gpusPerUnit:{anyOf:[positive,{type:'null'}]},unitType:{enum:['server','rack',null]},memoryGbPerGpu:{anyOf:[positive,{type:'null'}]},coolingType:{enum:['liquid','oem','unknown']},status:{enum:['table-listed','roadmap']},networks:{type:'array',items:object({protocol:{enum:['InfiniBand','RoCE']},speedGbps:{enum:[400,800]}})},source});
+platform.properties.power=object({description:str,basis:{enum:['gpu-only','rack-reference','server-reference','unknown']},gpuWatts:{anyOf:[positive,{type:'null'}]},unitKw:{anyOf:[{type:'number',exclusiveMinimum:0},{type:'null'}]},source});
+platform.required.push('power');
+platform.allOf=[{if:{properties:{status:{const:'roadmap'}}},then:{properties:{gpusPerUnit:{type:'null'},unitType:{type:'null'},memoryGbPerGpu:{type:'null'}}},else:{properties:{gpusPerUnit:positive,unitType:{enum:['server','rack']},memoryGbPerGpu:positive}}}];
+const storage=object({vendors:str,reason:str,considerations:str,source});
+const schema={$schema:'https://json-schema.org/draft/2020-12/schema',title:'Sales table infrastructure catalog',...object({version:{type:'string',format:'date'},source:str,qualification:str,assumptions:object({usableU:positive,pue:{type:'number',minimum:1},ancillaryFraction:{type:'number',minimum:0},note:str}),platforms:{type:'array',minItems:1,items:platform},storage:object(Object.fromEntries(workload.enum.map(k=>[k,storage])))})};
+fs.writeFileSync('catalog.schema.json',JSON.stringify(schema,null,2)+'\n');

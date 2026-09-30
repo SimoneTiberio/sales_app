@@ -1,0 +1,446 @@
+{
+  "version": "2026-09-27",
+  "source": "sales table completed.xlsx",
+  "qualification": "Transcribed from the supplied workbook; manufacturer claims have not been independently verified. Network and storage entries are recommendations requiring OEM/workload validation.",
+  "assumptions": {
+    "usableU": 40,
+    "pue": 1.2,
+    "ancillaryFraction": 0.15,
+    "note": "App planning assumptions, not workbook specifications: 40U usable space, 15% ancillary IT allowance and PUE 1.20. Dedicated network/storage racks are excluded."
+  },
+  "platforms": [
+    {
+      "id": "hgx-b200",
+      "vendor": "NVIDIA",
+      "name": "HGX B200",
+      "memory": "180 GB HBM3e per GPU",
+      "configuration": "8 GPUs per server; host CPUs depend on OEM",
+      "cooling": "Air or liquid; OEM-dependent",
+      "scalableUnit": "8-GPU NVLink domain; scale-out cluster sized by fabric",
+      "workloads": [
+        "training",
+        "inference",
+        "tuning",
+        "mixed"
+      ],
+      "storage": "WEKA or VAST; DDN EXAScaler for parallel I/O",
+      "network": "400 Gb/s InfiniBand or RoCE Ethernet; validate OEM NIC topology",
+      "considerations": "256 servers is a design choice, not a fixed product unit. Validate rack power, CUDA stack and workload throughput.",
+      "power": {
+        "description": " 8.0 kW per server",
+        "basis": "server-reference",
+        "gpuWatts": null,
+        "unitKw": 8,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K2"
+        }
+      },
+      "gpusPerUnit": 8,
+      "unitType": "server",
+      "memoryGbPerGpu": 180,
+      "coolingType": "oem",
+      "status": "table-listed",
+      "networks": [
+        {
+          "protocol": "InfiniBand",
+          "speedGbps": 400
+        },
+        {
+          "protocol": "RoCE",
+          "speedGbps": 400
+        }
+      ],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A2:K2"
+      }
+    },
+    {
+      "id": "hgx-b300",
+      "vendor": "NVIDIA",
+      "name": "HGX B300",
+      "memory": "288 GB HBM3e per GPU",
+      "configuration": "8 GPUs per server; host CPUs depend on OEM",
+      "cooling": "OEM-dependent; confirm air/liquid configuration",
+      "scalableUnit": "8-GPU NVLink domain; scale-out cluster sized by fabric",
+      "workloads": [
+        "training",
+        "inference",
+        "tuning",
+        "mixed"
+      ],
+      "storage": "WEKA or VAST; DDN EXAScaler for parallel I/O",
+      "network": "Up to 800 Gb/s ConnectX-8; Quantum-X800 InfiniBand or Spectrum-X Ethernet",
+      "considerations": "256 servers requires a validated network design. Size for model memory and concurrency; benchmark FP64-heavy HPC separately.",
+      "power": {
+        "description": "11.2 kW per server",
+        "basis": "server-reference",
+        "gpuWatts": null,
+        "unitKw": 11.2,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K3"
+        }
+      },
+      "gpusPerUnit": 8,
+      "unitType": "server",
+      "memoryGbPerGpu": 288,
+      "coolingType": "oem",
+      "status": "table-listed",
+      "networks": [
+        {
+          "protocol": "InfiniBand",
+          "speedGbps": 800
+        },
+        {
+          "protocol": "RoCE",
+          "speedGbps": 800
+        }
+      ],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A3:K3"
+      }
+    },
+    {
+      "id": "gb200-nvl72",
+      "vendor": "NVIDIA",
+      "name": "GB200 NVL72",
+      "memory": "186 GB HBM3e per GPU; 13.4 TB per rack",
+      "configuration": "2 Grace CPUs + 4 GPUs per compute tray",
+      "cooling": "Direct liquid cooling",
+      "scalableUnit": "18 compute trays; 72 GPUs + 36 CPUs in one NVLink rack",
+      "workloads": [
+        "training",
+        "inference",
+        "tuning"
+      ],
+      "storage": "WEKA, VAST or DDN EXAScaler; shared storage plus local cache",
+      "network": "NVLink within rack; 400 Gb/s-class InfiniBand or Spectrum-X Ethernet for scale-out",
+      "considerations": "Requires facility liquid cooling and rack power planning. Grace is Arm-based: validate software and storage clients.",
+      "power": {
+        "description": "120 kW per rack",
+        "basis": "rack-reference",
+        "gpuWatts": null,
+        "unitKw": 120,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K4"
+        }
+      },
+      "gpusPerUnit": 72,
+      "unitType": "rack",
+      "memoryGbPerGpu": 186,
+      "coolingType": "liquid",
+      "status": "table-listed",
+      "networks": [
+        {
+          "protocol": "InfiniBand",
+          "speedGbps": 400
+        },
+        {
+          "protocol": "RoCE",
+          "speedGbps": 400
+        }
+      ],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A4:K4"
+      }
+    },
+    {
+      "id": "gb300-nvl72",
+      "vendor": "NVIDIA",
+      "name": "GB300 NVL72",
+      "memory": "288 GB HBM3e per GPU; 20.7 TB per rack",
+      "configuration": "2 Grace CPUs + 4 GPUs per compute tray",
+      "cooling": "Direct liquid cooling",
+      "scalableUnit": "18 compute trays; 72 GPUs + 36 CPUs in one NVLink rack",
+      "workloads": [
+        "inference",
+        "training",
+        "tuning"
+      ],
+      "storage": "WEKA, VAST or DDN EXAScaler; size checkpoint and model-load bursts",
+      "network": "NVLink within rack; ConnectX-8 up to 800 Gb/s; Quantum-X800 or Spectrum-X",
+      "considerations": "Suited to reasoning and large models. Validate Arm support, cooling, rack power and end-to-end throughput.",
+      "power": {
+        "description": "142 kW per rack",
+        "basis": "rack-reference",
+        "gpuWatts": null,
+        "unitKw": 142,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K5"
+        }
+      },
+      "gpusPerUnit": 72,
+      "unitType": "rack",
+      "memoryGbPerGpu": 288,
+      "coolingType": "liquid",
+      "status": "table-listed",
+      "networks": [
+        {
+          "protocol": "InfiniBand",
+          "speedGbps": 800
+        },
+        {
+          "protocol": "RoCE",
+          "speedGbps": 800
+        }
+      ],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A5:K5"
+      }
+    },
+    {
+      "id": "mi325x",
+      "vendor": "AMD",
+      "name": "MI325X",
+      "memory": "256 GB HBM3e per GPU",
+      "configuration": "8 OAM GPUs per UBB server; CPU configuration is OEM-dependent",
+      "cooling": "Air or liquid; OEM-dependent",
+      "scalableUnit": "8-GPU Infinity Fabric domain; multi-node RDMA scale-out",
+      "workloads": [
+        "training",
+        "inference",
+        "tuning",
+        "hpc",
+        "mixed"
+      ],
+      "storage": "WEKA, VAST or DDN EXAScaler; validate ROCm/client compatibility",
+      "network": "Recommended: 400 Gb/s RoCE Ethernet or validated InfiniBand; RCCL integration",
+      "considerations": "2 TB GPU memory per 8-GPU node. Validate ROCm kernels, framework versions and GPU-direct I/O support.",
+      "power": {
+        "description": " 8.0 kW per server",
+        "basis": "server-reference",
+        "gpuWatts": null,
+        "unitKw": 8,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K6"
+        }
+      },
+      "gpusPerUnit": 8,
+      "unitType": "server",
+      "memoryGbPerGpu": 256,
+      "coolingType": "oem",
+      "status": "table-listed",
+      "networks": [
+        {
+          "protocol": "InfiniBand",
+          "speedGbps": 400
+        },
+        {
+          "protocol": "RoCE",
+          "speedGbps": 400
+        }
+      ],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A6:K6"
+      }
+    },
+    {
+      "id": "mi355x",
+      "vendor": "AMD",
+      "name": "MI355X",
+      "memory": "288 GB HBM3e per GPU",
+      "configuration": "8 OAM GPUs per server",
+      "cooling": "Direct liquid at full power; air option depends on OEM",
+      "scalableUnit": "8-GPU Infinity Fabric domain; rack density depends on OEM",
+      "workloads": [
+        "training",
+        "inference",
+        "tuning",
+        "hpc",
+        "mixed"
+      ],
+      "storage": "WEKA, VAST or DDN EXAScaler; benchmark concurrent reads/writes",
+      "network": "Recommended: 400/800 Gb/s RoCE Ethernet or validated InfiniBand; confirm NIC support",
+      "considerations": "Up to 1,400 W per GPU with liquid cooling. Validate ROCm and low-precision accuracy; rack count is not a single scale-up domain.",
+      "power": {
+        "description": "11.2 kW per server",
+        "basis": "server-reference",
+        "gpuWatts": null,
+        "unitKw": 11.2,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K7"
+        }
+      },
+      "gpusPerUnit": 8,
+      "unitType": "server",
+      "memoryGbPerGpu": 288,
+      "coolingType": "oem",
+      "status": "table-listed",
+      "networks": [
+        {
+          "protocol": "InfiniBand",
+          "speedGbps": 800
+        },
+        {
+          "protocol": "RoCE",
+          "speedGbps": 800
+        }
+      ],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A7:K7"
+      }
+    },
+    {
+      "id": "mi455x",
+      "vendor": "AMD",
+      "name": "MI455X",
+      "memory": "432 GB HBM4 per GPU",
+      "configuration": "Helios rack: 72 GPUs + 18 EPYC Venice CPUs",
+      "cooling": "Direct liquid cooling",
+      "scalableUnit": "72-GPU Helios scale-up rack; multi-rack scale-out",
+      "workloads": [
+        "training",
+        "inference",
+        "tuning"
+      ],
+      "storage": "WEKA, VAST or DDN shortlist; qualify the exact Helios configuration",
+      "network": "Helios Pensando scale-up/scale-out networking; UALink; validate OEM design",
+      "considerations": "Launched July 2026. Confirm OEM delivery and software qualification. For FP64-heavy HPC, evaluate the separate MI430X family.",
+      "power": {
+        "description": "120 kW per rack",
+        "basis": "rack-reference",
+        "gpuWatts": null,
+        "unitKw": 120,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K8"
+        }
+      },
+      "gpusPerUnit": 72,
+      "unitType": "rack",
+      "memoryGbPerGpu": 432,
+      "coolingType": "liquid",
+      "status": "table-listed",
+      "networks": [],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A8:K8"
+      }
+    },
+    {
+      "id": "mi500x",
+      "vendor": "AMD",
+      "name": "MI500X",
+      "memory": "MI500 series: HBM4E announced; capacity not confirmed",
+      "configuration": "Helios 500 announced; final server configuration unconfirmed",
+      "cooling": "Not confirmed; obtain OEM thermal specification",
+      "scalableUnit": "Final GPU count and scale-up domain unconfirmed",
+      "workloads": [
+        "training",
+        "inference"
+      ],
+      "storage": "Provisional: WEKA, VAST or DDN; requalify on production systems",
+      "network": "Next-generation Pensando announced; final speeds/topology unconfirmed",
+      "considerations": "AMD confirms MI500 series for 2027; exact MI500X SKU not verified. Roadmap only: do not quote final specifications or availability.",
+      "power": {
+        "description": "142 kW per rack",
+        "basis": "rack-reference",
+        "gpuWatts": null,
+        "unitKw": 142,
+        "source": {
+          "file": "sales table completed.xlsx",
+          "sheet": "GPU",
+          "range": "K9"
+        }
+      },
+      "gpusPerUnit": null,
+      "unitType": null,
+      "memoryGbPerGpu": null,
+      "coolingType": "unknown",
+      "status": "roadmap",
+      "networks": [],
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "GPU",
+        "range": "A9:K9"
+      }
+    }
+  ],
+  "storage": {
+    "training": {
+      "vendors": "WEKA; VAST; DDN EXAScaler",
+      "reason": "WEKA: parallel file access. VAST: shared file/object data. DDN: Lustre parallel I/O. Shortlist for dataset reads and checkpoint writes.",
+      "considerations": "Size sustained reads, checkpoint bursts and metadata IOPS at full concurrency. Test restart time, usable capacity, RDMA/GPU-direct support and failure recovery.",
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "Storage",
+        "range": "A2:D2"
+      }
+    },
+    "inference": {
+      "vendors": "VAST; WEKA; local NVMe cache",
+      "reason": "Shared model and retrieval data with fast loading. Local NVMe caches hot models; shared storage supports replicas and updates.",
+      "considerations": "Measure cold-start time and retrieval latency. Storage is less critical once a model resides in HBM, unless retrieval or KV-cache offload adds I/O. Validate engine integration.",
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "Storage",
+        "range": "A3:D3"
+      }
+    },
+    "tuning": {
+      "vendors": "WEKA; VAST; DDN EXAScaler for larger parallel jobs",
+      "reason": "Fast reuse of datasets and base models, plus checkpoints across repeated experiments. Choice depends on dataset size and concurrency.",
+      "considerations": "Size for simultaneous jobs, full versus adapter-only checkpoints and retention. Check snapshots, dataset versioning, access isolation and restore time.",
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "Storage",
+        "range": "A4:D4"
+      }
+    },
+    "hpc": {
+      "vendors": "DDN EXAScaler; WEKA; VAST where application-qualified",
+      "reason": "DDN: Lustre parallel filesystem. WEKA: parallel file access. VAST: shared multiprotocol data. Select using application I/O benchmarks.",
+      "considerations": "Validate POSIX/MPI-IO behavior, small-file metadata, large-file bandwidth and client support. Separate scratch retention from durable backup.",
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "Storage",
+        "range": "A5:D5"
+      }
+    },
+    "digitalTwin": {
+      "vendors": "VAST; WEKA; DDN EXAScaler for simulation-heavy workloads",
+      "reason": "Shared assets, sensor datasets and simulation outputs. VAST supports file/object access; WEKA and DDN address parallel simulation I/O.",
+      "considerations": "Validate NFS/SMB/S3 needs, ingest latency, asset versioning and metadata scale. Size simulation and visualization separately; confirm RTX needs for rendering.",
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "Storage",
+        "range": "A6:D6"
+      }
+    },
+    "mixed": {
+      "vendors": "VAST; WEKA; DDN EXAScaler if parallel AI/HPC dominates",
+      "reason": "VAST for shared multiprotocol datasets; WEKA for concurrent AI/file workloads; DDN when parallel simulation and training dominate.",
+      "considerations": "Benchmark workloads together. Validate tenant isolation, QoS, protocol support, snapshots, backup and lifecycle tiers; compare usable capacity and total cost.",
+      "source": {
+        "file": "sales table completed.xlsx",
+        "sheet": "Storage",
+        "range": "A7:D7"
+      }
+    }
+  }
+}

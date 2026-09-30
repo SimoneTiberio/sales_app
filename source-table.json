@@ -1,0 +1,334 @@
+﻿[
+    {
+        "sheet":  "GPU",
+        "rows":  [
+                     {
+                         "cells":  {
+                                       "A1":  "Vendor",
+                                       "I1":  "Network Recommendation",
+                                       "E1":  "Cooling",
+                                       "B1":  "Product family",
+                                       "H1":  "Storage Recommendation",
+                                       "G1":  "Use Case",
+                                       "F1":  "Scalable Unit",
+                                       "K1":  "Power Consumption / Rating",
+                                       "J1":  "Considerations",
+                                       "C1":  "Memory",
+                                       "D1":  "Server Configuration"
+                                   },
+                         "row":  1
+                     },
+                     {
+                         "cells":  {
+                                       "G2":  "Training; Inference; Fine Tuning; Mixed Workload",
+                                       "E2":  "Air or liquid; OEM-dependent",
+                                       "B2":  "HGX B200",
+                                       "F2":  "8-GPU NVLink domain; scale-out cluster sized by fabric",
+                                       "A2":  "Nvidia",
+                                       "C2":  "180 GB HBM3e per GPU",
+                                       "K2":  " 8.0 kW per server",
+                                       "I2":  "400 Gb/s InfiniBand or RoCE Ethernet; validate OEM NIC topology",
+                                       "D2":  "8 GPUs per server; host CPUs depend on OEM",
+                                       "H2":  "WEKA or VAST; DDN EXAScaler for parallel I/O",
+                                       "J2":  "256 servers is a design choice, not a fixed product unit. Validate rack power, CUDA stack and workload throughput."
+                                   },
+                         "row":  2
+                     },
+                     {
+                         "cells":  {
+                                       "A3":  "Nvidia",
+                                       "C3":  "288 GB HBM3e per GPU",
+                                       "B3":  "HGX B300",
+                                       "K3":  "11.2 kW per server",
+                                       "I3":  "Up to 800 Gb/s ConnectX-8; Quantum-X800 InfiniBand or Spectrum-X Ethernet",
+                                       "D3":  "8 GPUs per server; host CPUs depend on OEM",
+                                       "F3":  "8-GPU NVLink domain; scale-out cluster sized by fabric",
+                                       "H3":  "WEKA or VAST; DDN EXAScaler for parallel I/O",
+                                       "G3":  "Training; Inference; Fine Tuning; Mixed Workload",
+                                       "E3":  "OEM-dependent; confirm air/liquid configuration",
+                                       "J3":  "256 servers requires a validated network design. Size for model memory and concurrency; benchmark FP64-heavy HPC separately."
+                                   },
+                         "row":  3
+                     },
+                     {
+                         "cells":  {
+                                       "E4":  "Direct liquid cooling",
+                                       "D4":  "2 Grace CPUs + 4 GPUs per compute tray",
+                                       "H4":  "WEKA, VAST or DDN EXAScaler; shared storage plus local cache",
+                                       "F4":  "18 compute trays; 72 GPUs + 36 CPUs in one NVLink rack",
+                                       "A4":  "Nvidia",
+                                       "C4":  "186 GB HBM3e per GPU; 13.4 TB per rack",
+                                       "I4":  "NVLink within rack; 400 Gb/s-class InfiniBand or Spectrum-X Ethernet for scale-out",
+                                       "J4":  "Requires facility liquid cooling and rack power planning. Grace is Arm-based: validate software and storage clients.",
+                                       "B4":  "GB200 NVL72",
+                                       "G4":  "Training; Inference; Fine Tuning",
+                                       "K4":  "120 kW per rack"
+                                   },
+                         "row":  4
+                     },
+                     {
+                         "cells":  {
+                                       "G5":  "Inference; Training; Fine Tuning",
+                                       "D5":  "2 Grace CPUs + 4 GPUs per compute tray",
+                                       "H5":  "WEKA, VAST or DDN EXAScaler; size checkpoint and model-load bursts",
+                                       "A5":  "Nvidia",
+                                       "J5":  "Suited to reasoning and large models. Validate Arm support, cooling, rack power and end-to-end throughput.",
+                                       "C5":  "288 GB HBM3e per GPU; 20.7 TB per rack",
+                                       "I5":  "NVLink within rack; ConnectX-8 up to 800 Gb/s; Quantum-X800 or Spectrum-X",
+                                       "F5":  "18 compute trays; 72 GPUs + 36 CPUs in one NVLink rack",
+                                       "K5":  "142 kW per rack",
+                                       "E5":  "Direct liquid cooling",
+                                       "B5":  "GB300 NVL72"
+                                   },
+                         "row":  5
+                     },
+                     {
+                         "cells":  {
+                                       "K6":  " 8.0 kW per server",
+                                       "A6":  "AMD",
+                                       "I6":  "Recommended: 400 Gb/s RoCE Ethernet or validated InfiniBand; RCCL integration",
+                                       "J6":  "2 TB GPU memory per 8-GPU node. Validate ROCm kernels, framework versions and GPU-direct I/O support.",
+                                       "H6":  "WEKA, VAST or DDN EXAScaler; validate ROCm/client compatibility",
+                                       "F6":  "8-GPU Infinity Fabric domain; multi-node RDMA scale-out",
+                                       "G6":  "Training; Inference; Fine Tuning; HPC; Mixed Workload",
+                                       "C6":  "256 GB HBM3e per GPU",
+                                       "D6":  "8 OAM GPUs per UBB server; CPU configuration is OEM-dependent",
+                                       "E6":  "Air or liquid; OEM-dependent",
+                                       "B6":  "MI325X"
+                                   },
+                         "row":  6
+                     },
+                     {
+                         "cells":  {
+                                       "E7":  "Direct liquid at full power; air option depends on OEM",
+                                       "K7":  "11.2 kW per server",
+                                       "D7":  "8 OAM GPUs per server",
+                                       "H7":  "WEKA, VAST or DDN EXAScaler; benchmark concurrent reads/writes",
+                                       "F7":  "8-GPU Infinity Fabric domain; rack density depends on OEM",
+                                       "A7":  "AMD",
+                                       "C7":  "288 GB HBM3e per GPU",
+                                       "B7":  "MI355X",
+                                       "J7":  "Up to 1,400 W per GPU with liquid cooling. Validate ROCm and low-precision accuracy; rack count is not a single scale-up domain.",
+                                       "I7":  "Recommended: 400/800 Gb/s RoCE Ethernet or validated InfiniBand; confirm NIC support",
+                                       "G7":  "Training; Inference; Fine Tuning; HPC; Mixed Workload"
+                                   },
+                         "row":  7
+                     },
+                     {
+                         "cells":  {
+                                       "D8":  "Helios rack: 72 GPUs + 18 EPYC Venice CPUs",
+                                       "K8":  "120 kW per rack",
+                                       "G8":  "Training; Inference; Fine Tuning",
+                                       "A8":  "AMD",
+                                       "C8":  "432 GB HBM4 per GPU",
+                                       "J8":  "Launched July 2026. Confirm OEM delivery and software qualification. For FP64-heavy HPC, evaluate the separate MI430X family.",
+                                       "H8":  "WEKA, VAST or DDN shortlist; qualify the exact Helios configuration",
+                                       "I8":  "Helios Pensando scale-up/scale-out networking; UALink; validate OEM design",
+                                       "B8":  "MI455X",
+                                       "F8":  "72-GPU Helios scale-up rack; multi-rack scale-out",
+                                       "E8":  "Direct liquid cooling"
+                                   },
+                         "row":  8
+                     },
+                     {
+                         "cells":  {
+                                       "J9":  "AMD confirms MI500 series for 2027; exact MI500X SKU not verified. Roadmap only: do not quote final specifications or availability.",
+                                       "I9":  "Next-generation Pensando announced; final speeds/topology unconfirmed",
+                                       "E9":  "Not confirmed; obtain OEM thermal specification",
+                                       "K9":  "142 kW per rack",
+                                       "G9":  "Planned AI training and inference; benchmark when available",
+                                       "F9":  "Final GPU count and scale-up domain unconfirmed",
+                                       "A9":  "AMD",
+                                       "H9":  "Provisional: WEKA, VAST or DDN; requalify on production systems",
+                                       "C9":  "MI500 series: HBM4E announced; capacity not confirmed",
+                                       "B9":  "MI500X",
+                                       "D9":  "Helios 500 announced; final server configuration unconfirmed"
+                                   },
+                         "row":  9
+                     },
+                     {
+                         "cells":  {
+
+                                   },
+                         "row":  10
+                     },
+                     {
+                         "cells":  {
+
+                                   },
+                         "row":  11
+                     },
+                     {
+                         "cells":  {
+
+                                   },
+                         "row":  12
+                     },
+                     {
+                         "cells":  {
+                                       "D14":  "Specifications checked 27 Sep 2026. Storage and network shortlists are recommendations, subject to workload/OEM validation.",
+                                       "B14":  "Use Case Options"
+                                   },
+                         "row":  14
+                     },
+                     {
+                         "cells":  {
+                                       "D15":  "NVIDIA HGX specifications",
+                                       "B15":  "Training",
+                                       "G15":  "https://docs.nvidia.com/enterprise-reference-architectures/hgx-ai-factory/latest/components.html"
+                                   },
+                         "row":  15
+                     },
+                     {
+                         "cells":  {
+                                       "B16":  "Inference",
+                                       "G16":  "https://www.nvidia.com/en-us/data-center/gb200-nvl72/\nhttps://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html",
+                                       "D16":  "NVIDIA GB200 / GB300"
+                                   },
+                         "row":  16
+                     },
+                     {
+                         "cells":  {
+                                       "D17":  "AMD MI325X / MI355X",
+                                       "B17":  "Fine Tuning",
+                                       "G17":  "https://www.amd.com/en/products/accelerators/instinct/mi300/mi325x.html\nhttps://www.amd.com/content/dam/amd/en/documents/instinct-tech-docs/product-briefs/amd-instinct-miI355x-platform-brochure.pdf"
+                                   },
+                         "row":  17
+                     },
+                     {
+                         "cells":  {
+                                       "G18":  "https://www.amd.com/en/products/specifications/accelerators.html\nhttps://ir.amd.com/news-events/press-releases/detail/1294/aai-2026-amd-delivers-full-stack-compute-for-the-agentic-ai-era\nhttps://ir.amd.com/news-events/press-releases/detail/1272/amd-and-its-partners-share-their-vision-for-ai-everywhere-for-everyone-at-ces-2026",
+                                       "B18":  "HPC",
+                                       "D18":  "AMD MI455X / MI500 roadmap"
+                                   },
+                         "row":  18
+                     },
+                     {
+                         "cells":  {
+                                       "D19":  "Storage capabilities: WEKA / VAST",
+                                       "G19":  "https://www.weka.io/solutions/ai-machine-learning/\nhttps://www.vastdata.com/whitepaper",
+                                       "B19":  "Digital Twin"
+                                   },
+                         "row":  19
+                     },
+                     {
+                         "cells":  {
+                                       "G20":  "https://www.ddn.com/products/lustre-file-system-exascaler/",
+                                       "D20":  "Storage capabilities: DDN",
+                                       "B20":  "Mixed Workload"
+                                   },
+                         "row":  20
+                     },
+                     {
+                         "cells":  {
+                                       "G22":  "Published board/rack ratings, not measured average consumption. GPU-only totals exclude host CPUs, RAM, NICs, fans and conversion losses. Facility cooling and other overhead are additional.",
+                                       "D22":  "Power rating basis"
+                                   },
+                         "row":  22
+                     },
+                     {
+                         "cells":  {
+                                       "D23":  "HGX B200 power source",
+                                       "G23":  "https://www.supermicro.com/manuals/brochure/Brochure-AI-SuperCluster-NVIDIA-GB200-NVL72.pdf"
+                                   },
+                         "row":  23
+                     },
+                     {
+                         "cells":  {
+                                       "D24":  "HGX B300 power source",
+                                       "G24":  "https://www.supermicro.com/en/pressreleases/supermicro-begins-volume-shipments-nvidia-blackwell-ultra-systems-and-rack-plug-and"
+                                   },
+                         "row":  24
+                     },
+                     {
+                         "cells":  {
+                                       "G25":  "https://developer.nvidia.com/blog/?p=100010",
+                                       "D25":  "GB200 rack power source"
+                                   },
+                         "row":  25
+                     },
+                     {
+                         "cells":  {
+                                       "D26":  "GB300 rack power source",
+                                       "G26":  "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html"
+                                   },
+                         "row":  26
+                     },
+                     {
+                         "cells":  {
+                                       "G27":  "https://www.amd.com/en/products/specifications/accelerators.html",
+                                       "D27":  "AMD board power source"
+                                   },
+                         "row":  27
+                     }
+                 ]
+    },
+    {
+        "sheet":  "Storage",
+        "rows":  [
+                     {
+                         "cells":  {
+                                       "A1":  "Use Case Options",
+                                       "D1":  "Considerations",
+                                       "B1":  "Vendor ",
+                                       "C1":  "Reason"
+                                   },
+                         "row":  1
+                     },
+                     {
+                         "cells":  {
+                                       "B2":  "WEKA; VAST; DDN EXAScaler",
+                                       "A2":  "Training",
+                                       "C2":  "WEKA: parallel file access. VAST: shared file/object data. DDN: Lustre parallel I/O. Shortlist for dataset reads and checkpoint writes.",
+                                       "D2":  "Size sustained reads, checkpoint bursts and metadata IOPS at full concurrency. Test restart time, usable capacity, RDMA/GPU-direct support and failure recovery."
+                                   },
+                         "row":  2
+                     },
+                     {
+                         "cells":  {
+                                       "C3":  "Shared model and retrieval data with fast loading. Local NVMe caches hot models; shared storage supports replicas and updates.",
+                                       "D3":  "Measure cold-start time and retrieval latency. Storage is less critical once a model resides in HBM, unless retrieval or KV-cache offload adds I/O. Validate engine integration.",
+                                       "B3":  "VAST; WEKA; local NVMe cache",
+                                       "A3":  "Inference"
+                                   },
+                         "row":  3
+                     },
+                     {
+                         "cells":  {
+                                       "D4":  "Size for simultaneous jobs, full versus adapter-only checkpoints and retention. Check snapshots, dataset versioning, access isolation and restore time.",
+                                       "A4":  "Fine Tuning",
+                                       "B4":  "WEKA; VAST; DDN EXAScaler for larger parallel jobs",
+                                       "C4":  "Fast reuse of datasets and base models, plus checkpoints across repeated experiments. Choice depends on dataset size and concurrency."
+                                   },
+                         "row":  4
+                     },
+                     {
+                         "cells":  {
+                                       "B5":  "DDN EXAScaler; WEKA; VAST where application-qualified",
+                                       "D5":  "Validate POSIX/MPI-IO behavior, small-file metadata, large-file bandwidth and client support. Separate scratch retention from durable backup.",
+                                       "C5":  "DDN: Lustre parallel filesystem. WEKA: parallel file access. VAST: shared multiprotocol data. Select using application I/O benchmarks.",
+                                       "A5":  "HPC"
+                                   },
+                         "row":  5
+                     },
+                     {
+                         "cells":  {
+                                       "D6":  "Validate NFS/SMB/S3 needs, ingest latency, asset versioning and metadata scale. Size simulation and visualization separately; confirm RTX needs for rendering.",
+                                       "B6":  "VAST; WEKA; DDN EXAScaler for simulation-heavy workloads",
+                                       "A6":  "Digital Twin",
+                                       "C6":  "Shared assets, sensor datasets and simulation outputs. VAST supports file/object access; WEKA and DDN address parallel simulation I/O."
+                                   },
+                         "row":  6
+                     },
+                     {
+                         "cells":  {
+                                       "D7":  "Benchmark workloads together. Validate tenant isolation, QoS, protocol support, snapshots, backup and lifecycle tiers; compare usable capacity and total cost.",
+                                       "B7":  "VAST; WEKA; DDN EXAScaler if parallel AI/HPC dominates",
+                                       "C7":  "VAST for shared multiprotocol datasets; WEKA for concurrent AI/file workloads; DDN when parallel simulation and training dominate.",
+                                       "A7":  "Mixed Workload"
+                                   },
+                         "row":  7
+                     }
+                 ]
+    }
+]
