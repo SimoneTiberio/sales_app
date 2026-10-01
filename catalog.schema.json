@@ -1,0 +1,641 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sales table infrastructure catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "source",
+    "qualification",
+    "assumptions",
+    "platforms",
+    "storage"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "format": "date"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "qualification": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assumptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "usableU",
+        "pue",
+        "ancillaryFraction",
+        "note"
+      ],
+      "properties": {
+        "usableU": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pue": {
+          "type": "number",
+          "minimum": 1
+        },
+        "ancillaryFraction": {
+          "type": "number",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "vendor",
+          "name",
+          "memory",
+          "configuration",
+          "cooling",
+          "scalableUnit",
+          "workloads",
+          "storage",
+          "network",
+          "considerations",
+          "gpusPerUnit",
+          "unitType",
+          "memoryGbPerGpu",
+          "coolingType",
+          "status",
+          "networks",
+          "source",
+          "power"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "vendor": {
+            "enum": [
+              "NVIDIA",
+              "AMD"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "memory": {
+            "type": "string",
+            "minLength": 1
+          },
+          "configuration": {
+            "type": "string",
+            "minLength": 1
+          },
+          "cooling": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scalableUnit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "workloads": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "training",
+                "inference",
+                "tuning",
+                "hpc",
+                "digitalTwin",
+                "mixed"
+              ]
+            }
+          },
+          "storage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "network": {
+            "type": "string",
+            "minLength": 1
+          },
+          "considerations": {
+            "type": "string",
+            "minLength": 1
+          },
+          "gpusPerUnit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "unitType": {
+            "enum": [
+              "server",
+              "rack",
+              null
+            ]
+          },
+          "memoryGbPerGpu": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "coolingType": {
+            "enum": [
+              "liquid",
+              "oem",
+              "unknown"
+            ]
+          },
+          "status": {
+            "enum": [
+              "table-listed",
+              "roadmap"
+            ]
+          },
+          "networks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "protocol",
+                "speedGbps"
+              ],
+              "properties": {
+                "protocol": {
+                  "enum": [
+                    "InfiniBand",
+                    "RoCE"
+                  ]
+                },
+                "speedGbps": {
+                  "enum": [
+                    400,
+                    800
+                  ]
+                }
+              }
+            }
+          },
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "sheet",
+              "range"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sheet": {
+                "type": "string",
+                "minLength": 1
+              },
+              "range": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "power": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "description",
+              "basis",
+              "gpuWatts",
+              "unitKw",
+              "source"
+            ],
+            "properties": {
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "enum": [
+                  "gpu-only",
+                  "rack-reference",
+                  "server-reference",
+                  "unknown"
+                ]
+              },
+              "gpuWatts": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "unitKw": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "file",
+                  "sheet",
+                  "range"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sheet": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "range": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "roadmap"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "gpusPerUnit": {
+                  "type": "null"
+                },
+                "unitType": {
+                  "type": "null"
+                },
+                "memoryGbPerGpu": {
+                  "type": "null"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "gpusPerUnit": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "unitType": {
+                  "enum": [
+                    "server",
+                    "rack"
+                  ]
+                },
+                "memoryGbPerGpu": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "training",
+        "inference",
+        "tuning",
+        "hpc",
+        "digitalTwin",
+        "mixed"
+      ],
+      "properties": {
+        "training": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vendors",
+            "reason",
+            "considerations",
+            "source"
+          ],
+          "properties": {
+            "vendors": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "considerations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "sheet",
+                "range"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sheet": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "range": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "inference": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vendors",
+            "reason",
+            "considerations",
+            "source"
+          ],
+          "properties": {
+            "vendors": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "considerations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "sheet",
+                "range"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sheet": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "range": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "tuning": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vendors",
+            "reason",
+            "considerations",
+            "source"
+          ],
+          "properties": {
+            "vendors": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "considerations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "sheet",
+                "range"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sheet": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "range": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "hpc": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vendors",
+            "reason",
+            "considerations",
+            "source"
+          ],
+          "properties": {
+            "vendors": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "considerations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "sheet",
+                "range"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sheet": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "range": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "digitalTwin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vendors",
+            "reason",
+            "considerations",
+            "source"
+          ],
+          "properties": {
+            "vendors": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "considerations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "sheet",
+                "range"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sheet": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "range": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
+        "mixed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vendors",
+            "reason",
+            "considerations",
+            "source"
+          ],
+          "properties": {
+            "vendors": {
+              "type": "string",
+              "minLength": 1
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "considerations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "file",
+                "sheet",
+                "range"
+              ],
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sheet": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "range": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
