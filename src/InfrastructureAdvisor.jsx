@@ -1,13 +1,13 @@
+'use client';
+
 import React, { useState } from 'react';
-import { createRoot } from 'react-dom/client';
 import { catalog, workloads } from './catalog.js';
 import { defaults, evaluate, validateStep } from './engine.js';
 import { getFleetGuidance } from './fleetGuidance.js';
 import FleetStep, { FleetNotices } from './FleetStep.jsx';
-import './style.css';
 const steps = ['Workload & platform', 'Fleet, fabric & storage', 'Facility & power'];
 const number = n => n === null ? 'Unconfirmed' : n.toLocaleString('en-US');
-function App() {
+export default function InfrastructureAdvisor() {
  const [input,setInput]=useState({...defaults});
  const [step,setStep]=useState(0);
  const [completed,setCompleted]=useState(false);
@@ -50,4 +50,3 @@ function App() {
  <p className="footnote">Source: {catalog.source} · {catalog.version}<br/>{catalog.qualification}<br/>{catalog.assumptions.note}</p></section>}
  </div><footer>ATLAS / SOLUTIONS ADVISORY <span>Discovery → Configuration → Conversation</span></footer></main></div>;
 }
-createRoot(document.getElementById('root')).render(<App/>);

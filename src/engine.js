@@ -62,6 +62,10 @@ export function evaluate(input, data = catalog) {
     if (unitKw && positive(input.rackKw) && unitKw > Number(input.rackKw)) reasons.push(`${powerBasis === 'oem-input' ? 'OEM' : 'Reference'} unit power exceeds the rack power limit.`);
     const computeMw = unitKw ? units * unitKw / 1000 : null;
     const facilityMw = computeMw === null ? null : computeMw * (1 + data.assumptions.ancillaryFraction) * data.assumptions.pue;
+    if (unitKw !== null && (!Number.isFinite(computeMw) || computeMw <= 0 || !Number.isFinite(facilityMw) || facilityMw <= 0)) {
+      result.rejected.push({platform, reasons:['Calculated power is outside the supported numeric range. Check the GPU count and OEM unit power.']});
+      continue;
+    }
     if (positive(input.maxMw) && facilityMw !== null && facilityMw > Number(input.maxMw)) reasons.push(`Estimated facility demand ${facilityMw.toFixed(3)} MW exceeds the ${input.maxMw} MW power budget.`);
     if (positive(input.maxRacks) && racks !== null && racks > Number(input.maxRacks)) reasons.push('Compute rack count exceeds the rack limit.');
     reviews.push('Validate OEM NIC topology, fabric capacity and workload performance. The table does not define a cluster ceiling.');

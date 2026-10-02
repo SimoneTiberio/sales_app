@@ -106,3 +106,16 @@ test('refreshed server ratings filter budgets and retain OEM overrides',()=>{
  const override=evaluate({...defaults,gpuModel:'hgx-b200',unitKw:10,maxMw:3});assert.equal(override.matches.length,0);assert.equal(override.rejected[0].powerBasis,'oem-input');
  const packed=evaluate({...defaults,gpuModel:'hgx-b200',serverU:8,rackKw:32,maxRacks:63});assert.equal(packed.matches[0].racks,63);assert.equal(packed.matches[0].rackPeakKw,32);
 });
+
+test('power calculations reject overflow and underflow instead of exporting invalid matches',()=>{
+ for(const unitKw of [1e308, Number.MIN_VALUE]) {
+  const result=evaluate({...defaults,gpuModel:'hgx-b200',unitKw});
+  assert.equal(result.errors.length,0, 'the input itself is finite and positive');
+  assert.equal(result.matches.length,0);
+  assert.equal(result.rejected.length,1);
+  assert.match(result.rejected[0].reasons[0],/supported numeric range/);
+  const exported=JSON.parse(JSON.stringify(result));
+  assert.equal(exported.matches.length,0);
+  assert.equal(exported.rejected[0].facilityMw,undefined);
+ }
+});
