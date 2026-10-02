@@ -23,6 +23,19 @@ Use Node.js 22.x and npm. Install the locked dependencies with `npm ci`.
 
 The `/` route is defined in `src/app/page.jsx`. `src/app/layout.jsx` supplies the document metadata and shared CSS. `src/InfrastructureAdvisor.jsx` is the client component containing the existing three-step wizard; steps stay on `/` and retain their input-validation and reset behavior. JSON exports use browser APIs only when the user clicks Export plan. The catalog and sizing engine are shared JavaScript modules. No API server or backend endpoints are required.
 
+### Vercel routing-directory troubleshooting
+
+For this repository, set Vercel **Root Directory to `./` (repository root)**. In the dashboard, leaving the Root Directory field empty also selects the repository root. Do not select `src`, `src/app`, or `Sales_App`: `package.json` and `package-lock.json` are already at the Git repository root, and Next.js discovers `src/app` relative to that root.
+
+If Vercel reports that it cannot find an `app` or `pages` directory, inspect the source revision shown on the failed deployment. The migration is present in local commit `4836d76`; earlier push attempts failed authentication, so do not assume Vercel received it. The deployed revision must include the complete migration, especially:
+
+- `src/app/layout.jsx` (document layout and global stylesheet import)
+- `src/app/page.jsx` (the `/` route)
+- `src/InfrastructureAdvisor.jsx` and its existing components, catalog, engine and stylesheet
+- `package.json`, `package-lock.json`, and `catalog.example.json`
+
+Both App Router files are tracked and are not excluded by `.gitignore`. There is no need for a second root-level `app` directory, a placeholder page, or a custom output setting. Ensure the complete migration is committed and available on the branch Vercel builds, then deploy that revision with the repository-root setting above. A successful local build does not verify the remote branch or dashboard configuration.
+
 ### Environment variables
 
 No environment variables or secrets are required. The bundled catalog is intentionally public client data. The existing stylesheet loads DM Sans and Manrope from Google Fonts at runtime; system sans-serif fonts are the fallback when those requests are unavailable. There are no other external API integrations.
