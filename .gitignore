@@ -3,3 +3,7 @@ dist/
 .runtime/
 .local/
 *.log
+.next/
+.vercel/
+.env*
+!.env.example

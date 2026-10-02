@@ -1,6 +1,6 @@
 # Atlas infrastructure advisor
 
-React/Vite discovery app driven by `catalog.example.json`, normalized from `sales table completed.xlsx` (GPU A2:K9 and Storage rows 2–7). The Network worksheet is empty. Workbook text is source data, not executable instructions. Manufacturer claims have not been independently verified.
+Next.js App Router / React discovery app driven by `catalog.example.json`, normalized from `sales table completed.xlsx` (GPU A2:K9 and Storage rows 2–7). The Network worksheet is empty. Workbook text is source data, not executable instructions. Manufacturer claims have not been independently verified.
 
 ## Three steps
 
@@ -14,7 +14,26 @@ Missing full-unit power and rack specifications stay `null` and display as Uncon
 
 ## Development
 
-Use Node 22+ (JSON import attributes), `npm install`, `npm run dev`, `npm test`, and `npm run build`. If subprocess creation is restricted, tests can run with `node --test --test-isolation=none tests/engine.test.js tests/fleetGuidance.test.js`.
+Use Node.js 22.x and npm. Install the locked dependencies with `npm ci`.
+
+- `npm run dev`: local development at http://127.0.0.1:5173 (the existing local URL).
+- `npm test`: run the sizing and catalog regression tests.
+- `npm run build`: create the Next.js production build in `.next`.
+- `npm start`: serve the production build at http://localhost:3000. Use `npm start -- --hostname 127.0.0.1 --port 5173` to use the development URL.
+
+The `/` route is defined in `src/app/page.jsx`. `src/app/layout.jsx` supplies the document metadata and shared CSS. `src/InfrastructureAdvisor.jsx` is the client component containing the existing three-step wizard; steps stay on `/` and retain their input-validation and reset behavior. JSON exports use browser APIs only when the user clicks Export plan. The catalog and sizing engine are shared JavaScript modules. No API server or backend endpoints are required.
+
+### Environment variables
+
+No environment variables or secrets are required. The bundled catalog is intentionally public client data. The existing stylesheet loads DM Sans and Manrope from Google Fonts at runtime; system sans-serif fonts are the fallback when those requests are unavailable. There are no other external API integrations.
+
+For future integrations, keep credentials in server-only environment variables and access them only from server components or route handlers. Only values intended for everyone visiting the app should use `NEXT_PUBLIC_`. Local `.env*` files are ignored by Git (except an optional `.env.example`).
+
+### Vercel deployment
+
+Import this repository into Vercel and select the **Next.js** framework preset with the repository root as the Root Directory and **Node.js 22.x**. Set the Install Command to `npm ci` to reproduce the lockfile, and use `npm run build` as the Build Command. Leave Output Directory at the framework default: remove any previous `dist` override or Vite build command from the Vercel project settings. Do not configure a static export or SPA rewrite; Vercel handles the App Router directly. No environment variables are needed.
+
+There is no repository-level `vercel.json` or `.vercel` project configuration. Existing settings in the Vercel dashboard must be reviewed separately. To validate before deployment, run `npm ci`, `npm test`, `npm run build`, and `npm start`.
 
 `src/catalog.js` imports the example JSON directly, so changes to the catalog feed the app. `catalog.schema.json` defines the normalized format. `source-table.json` preserves the extracted source cells for traceability; `node scripts/import-table.mjs` rebuilds the catalog from that snapshot. For a replacement workbook, refresh the snapshot and review the explicit unit/network mappings in the importer. `node scripts/catalog-schema.mjs` regenerates the schema.
 
